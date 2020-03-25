@@ -1,14 +1,3 @@
-x Rewrite URLs for old APIs
-x Rate limiting
-x Compare to Arches
-x API key authentication
-
-Out of scope: JWTs for authentication
-
-List features
-Logs to volumes (maybe)
-
-====================================
 
 # NGINX as API gateway
 
