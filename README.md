@@ -1,7 +1,7 @@
 
 # NGINX as API gateway
 
-## How to start things with Docker
+# How-to
 
 Install Docker on the host machine, then run:
 
@@ -10,35 +10,43 @@ Install Docker on the host machine, then run:
 ## What's included
 
 * NGINX as a reverse proxy/API gateway
-* Two sample APIs:
+* Two sample APIs or micro-services:
     * **Tools** API built with NodeJS:
         * Endpoint: [GET] /api/tools/all
     * **Parts** API built with Node JS
         * Endpoint: [GET] /api/warehouse/parts
 
-The NGINX API gateway will consolidate these end points and make them available in the following URLs.
+The NGINX API gateway will consolidate these end points and make them available via the following URLs.
 
-**Authenticated end points with an API key**:
+### An authenticated API
 
 * http://localhost:8080/api/warehouse/tools
 * http://localhost:8080/api/warehouse/parts
 
-To use these end points, try hitting them first with a web browser. Then use Postman to make a GET request while passing **apikey** of **B5zIqmRGXmrJTFmKa99vcit** in the request header. Other valid keys can be found in **api_keys.conf**.
+To use these end points, try hitting them first with a web browser. You should get "401 - Unauthorized". Then use Postman to make a GET request while passing **apikey** of **7B5zIqmRGXmrJTFmKa99vcit** in the request header. Other valid keys can be found in **api_keys.conf**.
 
-Rate limit: 1 request/s.
-
-**Non-authenticated end points**:
+### A non-authenticated API
 
 The same two sample APIs are also available via non-authenticated GET requests which you can access with a web browser.
 
 * http://localhost:8080/api/warehouse-2/tools
 * http://localhost:8080/api/warehouse-2/parts
 
-Rate limit: 1 request/s.
+## Rate limiting
 
-## Malformed URL
+Rates are limited to 1 request/s. Beyond that you should hit "429 - API rate limit exceeded".
 
-Try requesting a random URL such as http://localhost/8080/api/toolz to see how NGINX handles malformed URLs.
+## Malformed URL handling
+
+Try requesting a random URL such as http://localhost:8080/api/toolz to see how NGINX handles malformed URLs. You should get back "400 - Bad request" in JSON.
+
+## Logging
+
+Not implemented (commented out).
+
+---------------------
+
+# Background and observations
 
 ## General - NGINX
 
@@ -90,13 +98,13 @@ NGINX offers several approaches for protecting APIs and authenticating API clien
 * API keys
 * JSON Web Tokens (NGINX Plus only)
 
-NAPI definition/routing can be separated from the API's security policy such as rate limiting, authentication and logging. The policy can be defined for each API separately.
+API definition/routing can be separated from the API's security policy such as rate limiting, authentication and logging. The policy can be defined for each API separately.
 
 Rate limits (HTTP requests allowed per second/minute) can be set differently for each API as well. Also, rates can be set differently for calls which use or do not use API keys. For instance, we could allow higher rates for calls that are sending API keys compared to those that do not.
 
 API keys are commonly used when authenticating request coming from API clients. API keys are a shared secret known by the client and the API gateway, a long and complex password issued to the API client and kept long-term. Th key can be provided by the API client to the API gateway in the header of the request. NGINX will compare the API key to a list of allowed values and block or forward requests accordingly. Note that there is no need to implement key verification in the API services itself.
 
-## API definition - broad of specific
+## API definition - broad or specific
 
 APIs can be defined in NGINX broadly or in a very specific manner. Broad could mean, for example, passing on any URL starting with "x". A specific definition would only allow proxying if URL that are an exact match or match a specific pattern
 

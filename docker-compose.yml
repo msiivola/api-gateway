@@ -4,12 +4,12 @@ services:
   parts:
     build:
       context: ./parts
-    ports:
+    # ports:
       #- 3000:3000
   tools:
     build:
       context: ./tools
-    ports:
+    # ports:
       #- 3001:3000
   reverse-proxy:
     build:
