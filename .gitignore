@@ -1,3 +1,2 @@
-/animals/node_modules
-/people/node_modules
-*/node_modules
+/parts/node_modules
+/tools/node_modules

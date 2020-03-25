@@ -1,6 +1,11 @@
 
 # NGINX as API gateway
 
+## What's included
+
+* NGINX as a reverse proxy/API gateway
+* 
+
 ## General - NGINX
 
 * Open source 

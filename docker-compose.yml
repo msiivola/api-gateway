@@ -1,22 +1,19 @@
 version: '3'
 
 services:
-  animals:
+  parts:
     build:
-      context: ./animals
+      context: ./parts
     ports:
       - 3000:3000
-  people:
+  tools:
     build:
-      context: ./people
+      context: ./tools
     ports:
       - 3001:3000
   reverse-proxy:
     build:
       context: ./nginx
     ports:
-      - 8888:5000
-    # links:
-    #   - service-1
-    #   - service-2
+      - 8080:5000
 
