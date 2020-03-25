@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  animals:
+    build:
+      context: ./animals
+    ports:
+      - 3000:3000
+  people:
+    build:
+      context: ./people
+    ports:
+      - 3001:3000
+  reverse-proxy:
+    build:
+      context: ./nginx
+    ports:
+      - 5000:5000
+    # links:
+    #   - service-1
+    #   - service-2
+
