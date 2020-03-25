@@ -1,11 +1,44 @@
 
 # NGINX as API gateway
 
+## How to start things with Docker
+
+Install Docker on the host machine, then run:
+
+    docker-compose up --build
+
 ## What's included
 
 * NGINX as a reverse proxy/API gateway
-* Tools API built with NodeJS
-* Parts API built with Node JS
+* Two sample APIs:
+    * **Tools** API built with NodeJS:
+        * Endpoint: [GET] /api/tools/all
+    * **Parts** API built with Node JS
+        * Endpoint: [GET] /api/warehouse/parts
+
+The NGINX API gateway will consolidate these end points and make them available in the following URLs.
+
+**Authenticated end points with an API key**:
+
+* http://localhost:8080/api/warehouse/tools
+* http://localhost:8080/api/warehouse/parts
+
+To use these end points, try hitting them first with a web browser. Then use Postman to make a GET request while passing **apikey** of **B5zIqmRGXmrJTFmKa99vcit** in the request header. Other valid keys can be found in **api_keys.conf**.
+
+Rate limit: 1 request/s.
+
+**Non-authenticated end points**:
+
+The same two sample APIs are also available via non-authenticated GET requests which you can access with a web browser.
+
+* http://localhost:8080/api/warehouse-2/tools
+* http://localhost:8080/api/warehouse-2/parts
+
+Rate limit: 1 request/s.
+
+## Malformed URL
+
+Try requesting a random URL such as http://localhost/8080/api/toolz to see how NGINX handles malformed URLs.
 
 ## General - NGINX
 
