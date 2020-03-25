@@ -4,7 +4,8 @@
 ## What's included
 
 * NGINX as a reverse proxy/API gateway
-* 
+* Tools API built with NodeJS
+* Parts API built with Node JS
 
 ## General - NGINX
 
